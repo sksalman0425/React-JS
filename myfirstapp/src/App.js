@@ -1,26 +1,30 @@
-import logo from './logo.svg';
+
+import { useState } from 'react';
 import './App.css';
 
-function App() {
+//  function customButton(props){
+//   console.log(" props object properties i.e args passed by CustomButtom::",props,props.name,props.count);
+// return(<button>{props.name}</button>);//html tag
+//  }
+
+ function Button () {
+  const [counter,setCounter]=useState(0);
+  const onCounterButtonClick=()=>{setCounter(counter+1)};// we storing refernce of function in variable
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <input type={"text"} placeholder="Enter your requirements"/>
-        <p>
-          Hello world! this is my first app in React.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={onCounterButtonClick}>{counter}</button>
     </div>
-  );
-}
+  )
+ }
+function App() {
+
+  return(
+  <div>
+    {/* you can javascript code in tag within {} */}
+    {/* <CustomButton name={"Azhar"} count={0}></CustomButton> */}
+    <Button></Button>
+
+  </div>);
+  }
 
 export default App;
