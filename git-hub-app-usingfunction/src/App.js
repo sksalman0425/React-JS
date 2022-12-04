@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.npmcss';
+import './App.css';
 import axios from 'axios';
 
 const Card = (props) => {
@@ -33,14 +33,15 @@ const CardList = (props) => {
 const Form = (props) => {
   const [userName, setUserName] = useState("");
   const handleInputChange = (event) => {
-    // userName=event.target.value;
+    // userName=event.target.value; this type of assigment not done in React.in React Assigment is done using setter function shown below
     setUserName(event.target.value)
 
   }
   const handleOnSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault();//it is use to prevent defaut behavior of form which refresh after submit.
     debugger;
-    const response = await axios.get(`https://api.github.com/users/${userName} `);
+    //const response = await axios.get("https://api.github.com/users/" +userName); this is also workable
+    const response = await axios.get(`https://api.github.com/users/${userName}`);
     console.log("response from github api", response.data);
     props.addNewProfile(response.data)
   }
@@ -57,6 +58,8 @@ const Form = (props) => {
     </form>
   )
 }
+//This App() is called by index.js which is called by index.html. 
+//App() may have props arg or not.
 const App = () => {
   const [profiles, setProfiles] = useState([]);
   const addNewProfile = (newProfile) => {
