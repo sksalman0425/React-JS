@@ -62,6 +62,14 @@ const DisplayStar = (props) => {
     </>
   );
 };
+const PlayAgain = (props)=>{
+  return (
+    <div>
+      <button onClick={()=>props.resetGame()}>Play Again</button>
+    </div>
+  )
+};
+
 
 // STAR MATCH - Starting Template
 const StarMatch = () => {
@@ -71,6 +79,10 @@ const StarMatch = () => {
   const [availableNums, setAvailableNums] = useState(utils.range(1, 9));
   const [candidateNums, setCandidateNums] = useState([]);
   const candidateWrong = utils.sum(candidateNums) > stars;
+  const [secondsleft, setsecondsleft] =useState(10);
+
+  const gameIsDone= availableNums.length===0;
+
   const numberStatus = (number) => {
     console.log("Number in numbarStatus Component", number);
     if (!availableNums.includes(number)) {
@@ -81,14 +93,16 @@ const StarMatch = () => {
     }
     return "available";
   };
-
-
-  const onNumberClick = (number, currentStatus) => {
-    if (currentStatus === "used") {
+  const onNumberClick = (number,currentStatus)=>{
+    if(currentStatus=== "used"){
       return;
     }
     //candidate array add
-    const newCandidateNums = candidateNums.concat(number);
+    const newCandidateNums = 
+    currentStatus === 'available' 
+    ? candidateNums.concat(number)
+    : candidateNums.filter((cn)=> cn !== number);
+  
     if (utils.sum(newCandidateNums) !== stars) {
       setCandidateNums(newCandidateNums);
     } else {
@@ -99,7 +113,17 @@ const StarMatch = () => {
       setAvailableNums(newAvailableNums);
       setCandidateNums([]);
     }
+  
+
+
+
+  }
+ const resetGame =()=>{
+   setStars(utils.random(1, 9));
+   setAvailableNums(utils.range(1, 9));
+    setCandidateNums([]);
   };
+  
   return (
     <div className="game">
       <div className="help">
@@ -107,7 +131,7 @@ const StarMatch = () => {
       </div>
       <div className="body">
         <div className="left">
-          <DisplayStar count={stars} />
+          {gameIsDone  ? (<PlayAgain resetGame={resetGame}/> ):(<DisplayStar count={stars} />)}
         </div>
         <div className="right">
           {utils.range(1, 9).map((number) => (
@@ -123,6 +147,6 @@ const StarMatch = () => {
       <div className="timer">Time Remaining: 10</div>
     </div>
   );
-};
+}
 
 export default StarMatch;
