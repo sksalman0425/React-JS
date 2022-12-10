@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./StarMatch.css";
 
 // Math science
@@ -123,7 +123,11 @@ const StarMatch = () => {
    setAvailableNums(utils.range(1, 9));
     setCandidateNums([]);
   };
-  
+  useEffect(()=>{
+    //componentDidMount 
+    //componentDidUpdate 
+    console.log("useEffect called");
+  })
   return (
     <div className="game">
       <div className="help">
