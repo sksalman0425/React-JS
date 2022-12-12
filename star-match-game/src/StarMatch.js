@@ -41,7 +41,7 @@ const colors = {
 
 
 const PlayNumber = (props) => {
-  console.log("status of the Number is ::", props.status, props.number);
+ // console.log("status of the Number is ::", props.status, props.number);
   return (
     <button
       className="number"
@@ -65,6 +65,9 @@ const DisplayStar = (props) => {
 const PlayAgain = (props)=>{
   return (
     <div>
+      <div style={{color: props.gameStatus === "won"? "green":"red"}}>
+        {props.gameStatus === "won" ? "Nice Played" : "Game Over"}
+      </div>
       <button onClick={()=>props.resetGame()}>Play Again</button>
     </div>
   )
@@ -74,14 +77,31 @@ const PlayAgain = (props)=>{
 // STAR MATCH - Starting Template
 const StarMatch = () => {
   const [stars, setStars] = useState(utils.random(1, 9));
-  console.log("Range Function", utils.range(1, 9));
-
+  //console.log("Range Function", utils.range(1, 9));
   const [availableNums, setAvailableNums] = useState(utils.range(1, 9));
   const [candidateNums, setCandidateNums] = useState([]);
   const candidateWrong = utils.sum(candidateNums) > stars;
   const [secondsleft, setsecondsleft] =useState(10);
+ // const gameIsDone= availableNums.length===0;
+  const gameStatus= availableNums.length ===0 ? "won" : secondsleft===0 ? "lost" : "active";
 
-  const gameIsDone= availableNums.length===0;
+  useEffect(()=>{
+    //componentDidMount 
+    //componentDidUpdate 
+    console.log("After html render, this useEffect is called");
+    if (secondsleft > 0){
+     const timerID= setTimeout(()=>{
+      setsecondsleft(secondsleft-1)
+    },1000);
+    // in useEffect's return function we can clear variable value/unsubscribe logic etc.
+    // In this example we clear multiple instances of setTimeout function which are created everytime when it called.
+    // Remember, here we are not making secondsleft variable clear
+     return ()=>{
+      clearTimeout(timerID);
+     }
+    }
+
+  },[secondsleft]);//this useEffeect function is called when secondsleft value changed.
 
   const numberStatus = (number) => {
     console.log("Number in numbarStatus Component", number);
@@ -118,16 +138,15 @@ const StarMatch = () => {
 
 
   }
- const resetGame =()=>{
-   setStars(utils.random(1, 9));
-   setAvailableNums(utils.range(1, 9));
-    setCandidateNums([]);
-  };
-  useEffect(()=>{
-    //componentDidMount 
-    //componentDidUpdate 
-    console.log("useEffect called");
-  })
+
+
+
+  const resetGame =()=>{
+    setStars(utils.random(1, 9));
+    setAvailableNums(utils.range(1, 9));
+     setCandidateNums([]);
+     setsecondsleft(10);
+   };
   return (
     <div className="game">
       <div className="help">
@@ -135,7 +154,11 @@ const StarMatch = () => {
       </div>
       <div className="body">
         <div className="left">
-          {gameIsDone  ? (<PlayAgain resetGame={resetGame}/> ):(<DisplayStar count={stars} />)}
+          {gameStatus !== "active"  ?(
+             <PlayAgain resetGame={resetGame} gameStatus={gameStatus}/>
+              ):(
+              <DisplayStar count={stars} />
+              )}
         </div>
         <div className="right">
           {utils.range(1, 9).map((number) => (
@@ -148,7 +171,7 @@ const StarMatch = () => {
           ))}
         </div>
       </div>
-      <div className="timer">Time Remaining: 10</div>
+      <div className="timer">Time Remaining: {secondsleft}</div>
     </div>
   );
 }
