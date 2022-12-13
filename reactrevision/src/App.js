@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 
 const user = {
-  name: 'Hedy Lamarr',
+  name: 'Princess Diana',
   imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
   imageSize: 90,
 };
@@ -12,7 +12,7 @@ function MyButton(){
     <button style={{border:'2px solid red'}}className='My-button'> This is my button</button>
   )
 }
-
+//below we use variable values in <h1></h1> <img/> tags 
 function Profile(){
  return (
   <>
