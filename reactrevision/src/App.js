@@ -9,7 +9,7 @@ import { Profile } from "./Profile";
 // remember we can also write import Profile123 from './Profile'
 //because we have written default keyword during exporting of Profile
 // if we have not written default then we have to write excact name in {}.
-import { ShoppingList } from "./List";
+import { ShoppingList } from "./ShoppingList";
 
 function MyButton() {
   const [showProfile, setshowProfile] = useState(false);
@@ -28,7 +28,7 @@ function MyButton() {
         style={{ border: "2px solid red" }}
         className="My-button"
       >
-        This is my button
+        Click here to showProfile
       </button>
       <button onClick={handleHideClick}>Click here to hide profile</button>
       {showProfile && <Profile />}
