@@ -11,6 +11,8 @@ const FilterableProductTable = ({ products }) => {
     <div>
       <SearchBar />
       <ProductTable products={products} />
+      {/*here we make products which is props of FilterableProductTable as attribute of ProductTable
+       and passing it to props of ProductTable component  */}
     </div>
   );
 };

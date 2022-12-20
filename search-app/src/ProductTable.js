@@ -1,5 +1,8 @@
 import ProductCategoryRow from "./ProductCategoryRow";
-import ProductRow from "./ProductRow";
+import ProductRow from "./ProductRow"; 
+//here we receiving products attribute in the props of ProductTable i.e.products
+// here we can write props or products or any name, only thing is to remember that 
+//if we are giving other name of variable then put it in {} as shown in below example. 
 const ProductTable = ({ products }) => {
   const rows = [];
   let lastCategory = null;
