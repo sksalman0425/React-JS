@@ -1,4 +1,5 @@
-const ProductRow = ({ product }) => {
+const ProductRow = ({ product,key }) => {
+  //or you can write also const {product,key}=props
     const name = product.stocked ? (
       product.name
     ) : (
