@@ -1,5 +1,6 @@
 const SearchBar = ({filterText,inStockOnly}) => {
 //or we can write const {filterText,inStockOnly}=props
+//onChange event this onChangeHandler is called which is call back function.
   const onChangeHandler =()=>{
 
   }
