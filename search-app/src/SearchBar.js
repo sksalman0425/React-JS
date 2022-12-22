@@ -1,14 +1,27 @@
-const SearchBar = ({filterText,inStockOnly}) => {
+const SearchBar = ({
+  filterText,
+  inStockOnly,
+  onFilterTextChanged,
+  onIsStockOnlyChanged,
+}) => {
 //or we can write const {filterText,inStockOnly}=props
 //onChange event this onChangeHandler is called which is call back function.
-  const onChangeHandler =()=>{
-
-  }
+ 
   return (
     <form>
-      <input type="text" placeholder="Search..." />
+      <input
+        type="text"
+        placeholder="Search..."
+        value={filterText}
+        onChange={(event) => onFilterTextChanged(event.target.value)}
+      />
       <label>
-        <input  onChange= {onChangeHandler} type="checkbox" /> Only show products in stock
+        <input
+          onChange={(event) => onIsStockOnlyChanged(event.target.checked)}
+          type="checkbox"
+          checked={inStockOnly}
+        />
+        Only show products in stock
       </label>
     </form>
   );

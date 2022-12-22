@@ -11,10 +11,29 @@ const FilterableProductTable = ({ products }) => {
   //here we use usestate bz it is parent component of both searchBar and ProductTable
   const [filterText, setFilterText]=useState("");// here initial value is null
   const [inStockOnly,setInstockOnly]=useState(false);
+  const onFilterTextChanged = (changedValue) => {
+    console.log("Value recieved from Search bar component", changedValue);
+    setFilterText(changedValue);
+  };
+  const onIsStockOnlyChanged = (changedValue) => {
+    console.log("Value recieved from Search bar component", changedValue);
+    setInstockOnly(changedValue);
+  };
   return (
     <div>
-      <SearchBar filterText={filterText} inStockOnly={inStockOnly}/>
-      <ProductTable products={products} filterText={filterText} inStockOnly={inStockOnly}/>
+      <div>
+      <SearchBar
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+        onFilterTextChanged={onFilterTextChanged}
+        onIsStockOnlyChanged={onIsStockOnlyChanged}
+      />
+      <ProductTable
+        products={products}
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+      />
+    </div>
       {/*here we make products which is props of FilterableProductTable as attribute of ProductTable
        and passing it to props of ProductTable component  */}
     </div>
