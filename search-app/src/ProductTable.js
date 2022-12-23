@@ -39,7 +39,7 @@ const ProductTable = ({ products, filterText, inStockOnly }) => {
     rows.push(<ProductRow product={product} key={product.name} />);
     lastCategory = product.category;
   });
-  console.log("Rows::::", rows);
+  console.log("Rows:::::", rows);
 
   return (
     <table>

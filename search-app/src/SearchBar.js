@@ -11,7 +11,7 @@ const SearchBar = ({
     <form>
       <input
         type="text"
-        placeholder="Search..."
+        placeholder="Search....."
         value={filterText}
         onChange={(event) => onFilterTextChanged(event.target.value)}
       />
